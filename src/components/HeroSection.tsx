@@ -21,8 +21,8 @@ export const HeroSection: FC = () => {
     return (
         <main className="max-w-300 w-full p-8">
             <header className="flex gap-4 justify-between">
-                <div className="font-extrabold text-foreground-50 flex text-2xl bg-primary-600 aspect-square w-min place-content-center place-items-center p-1">
-                    HW.
+                <div className="font-extrabold overflow-hidden pointer-events-none text-background-100 dark:text-foreground-950 flex text-2xl bg-primary-600 aspect-square w-min place-content-center place-items-center p-1">
+                    <span className="scale-160 -rotate-45">HW</span>
                 </div>
                 <nav>
                     <ul className="flex gap-4 mt-4">
