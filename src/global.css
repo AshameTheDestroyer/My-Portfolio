@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+@theme {
+    --color-foreground-50: #f6f7f9;
+    --color-foreground-100: #ecedf2;
+    --color-foreground-200: #d5d8e2;
+    --color-foreground-300: #b0b5c9;
+    --color-foreground-400: #858dab;
+    --color-foreground-500: #667091;
+    --color-foreground-600: #515878;
+    --color-foreground-700: #434861;
+    --color-foreground-800: #3a3f52;
+    --color-foreground-900: #333646;
+    --color-foreground-950: #22242f;
+
+    --color-background-50: #fcf7f4;
+    --color-background-100: #f9ede7;
+    --color-background-200: #f5e1d6;
+    --color-background-300: #ecc9b5;
+    --color-background-400: #dfa88a;
+    --color-background-500: #cf8a64;
+    --color-background-600: #ba7048;
+    --color-background-700: #9c5c39;
+    --color-background-800: #824e32;
+    --color-background-900: #6d452f;
+    --color-background-950: #3a2215;
+
+    --color-primary-50: #eefff6;
+    --color-primary-100: #d7ffed;
+    --color-primary-200: #b2ffdd;
+    --color-primary-300: #76ffc3;
+    --color-primary-400: #33f5a1;
+    --color-primary-500: #09de82;
+    --color-primary-600: #00af64;
+    --color-primary-700: #049156;
+    --color-primary-800: #0a7146;
+    --color-primary-900: #0a5d3c;
+    --color-primary-950: #003420;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+button {
+    cursor: pointer;
+}
