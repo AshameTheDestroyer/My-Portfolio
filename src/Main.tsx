@@ -6,10 +6,16 @@ import { ThemeProvider } from "./contexts/ThemeProvider";
 import "./global.css";
 
 export const Main: FC = () => {
-    function PlayClickAudio() {
+    function ClickHandler() {
         const audio = new Audio("/audios/click.mp3");
         audio.currentTime = 0.75;
         audio.play();
+
+        document.documentElement.classList.add("cursor-clicked");
+
+        setTimeout(() => {
+            document.documentElement.classList.remove("cursor-clicked");
+        }, 150);
     }
 
     useEffect(() => {
@@ -21,12 +27,12 @@ export const Main: FC = () => {
             document.removeEventListener("click", w.__clickAudioHandler);
         }
 
-        document.addEventListener("click", PlayClickAudio);
-        w.__clickAudioHandler = PlayClickAudio;
+        document.addEventListener("click", ClickHandler);
+        w.__clickAudioHandler = ClickHandler;
 
         return () => {
-            document.removeEventListener("click", PlayClickAudio);
-            if (w.__clickAudioHandler == PlayClickAudio) {
+            document.removeEventListener("click", ClickHandler);
+            if (w.__clickAudioHandler == ClickHandler) {
                 w.__clickAudioHandler = undefined;
             }
         };

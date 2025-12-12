@@ -26,10 +26,7 @@ export const HeroSection: FC = () => {
                 <nav>
                     <ul className="flex gap-4 mt-4">
                         {sections.map((section, i) => (
-                            <li
-                                key={i}
-                                className="hover:underline font-bold cursor-pointer"
-                            >
+                            <li key={i} className="hover:underline font-bold">
                                 <a
                                     href={`#${section
                                         .toLowerCase()

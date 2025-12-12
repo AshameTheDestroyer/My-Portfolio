@@ -41,6 +41,22 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+    cursor: url("svgs/cursor_auto.svg"), auto;
+}
+
+:root.cursor-clicked {
+    cursor: url("svgs/cursor_click.svg"), auto;
+}
+
+::selection {
+    @apply bg-primary-500/75 text-background-50;
+}
+
+.dark ::selection {
+    @apply text-foreground-900;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation: none;
@@ -57,19 +73,30 @@ body {
 
 body::after {
     content: "";
-    position: fixed;
+
     inset: 0;
+    position: fixed;
+
     z-index: -1;
     opacity: 0.2;
+
     background-image: linear-gradient(#00af64 1.5px, transparent 1.5px),
         linear-gradient(to right, #00af64 1.5px, transparent 1.5px);
     background-size: 30px 30px;
 }
 
-button {
-    cursor: pointer;
+:root:not(.cursor-clicked) :is(button, a) {
+    cursor: url("svgs/cursor_pointer.svg"), pointer;
 }
 
 button:not([data-variant="ghost"]) {
     @apply bg-primary-500/25 hover:bg-primary-500/50 p-2 rounded-md transition-colors;
+}
+
+:root:not(.cursor-clicked) :is(p, h1, h2, h3, h4, h5, h6) {
+    cursor: url("svgs/cursor_text.svg"), text;
+}
+
+:root:not(.cursor-clicked) :is(:disabled, [data-disabled="true"]) {
+    cursor: url("svgs/cursor_disabled.svg"), not-allowed;
 }

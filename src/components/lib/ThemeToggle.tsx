@@ -14,6 +14,7 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({ id, className }) => {
     return (
         <button
             id={id}
+            disabled
             ref={buttonReference}
             className={className}
             onClick={(_e) =>
