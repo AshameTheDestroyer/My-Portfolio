@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
 
 @theme {
     --color-foreground-50: #f6f7f9;
@@ -40,6 +41,35 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+body {
+    @apply bg-background-100 text-foreground-900 dark:bg-foreground-950 dark:text-background-50;
+
+    font-family: "Exo 2", "El Messiri", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.2;
+    background-image: linear-gradient(#00af64 1.5px, transparent 1.5px),
+        linear-gradient(to right, #00af64 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+
 button {
     cursor: pointer;
+}
+
+button:not([data-variant="ghost"]) {
+    @apply bg-primary-500/25 hover:bg-primary-500/50 p-2 rounded-md transition-colors;
 }

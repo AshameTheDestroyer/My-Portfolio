@@ -5,6 +5,7 @@ import {
     createContext,
     type PropsWithChildren,
 } from "react";
+import { flushSync } from "react-dom";
 
 export type Theme = "dark" | "light" | "system";
 
@@ -16,7 +17,7 @@ export type ThemeProviderProps = PropsWithChildren<{
 export type ThemeProviderState = {
     theme: Theme;
     isDarkTheme: boolean;
-    setTheme: (theme: Theme) => void;
+    setTheme: (theme: Theme, buttonRect?: DOMRect) => void;
 };
 
 const initialState: ThemeProviderState = {
@@ -66,9 +67,39 @@ export function ThemeProvider({
             (theme == "system" &&
                 typeof window != "undefined" &&
                 window.matchMedia("(prefers-color-scheme: dark)").matches),
-        setTheme: (theme: Theme) => {
+        setTheme: (theme: Theme, buttonRect?: DOMRect) => {
             localStorage.setItem(storageKey, theme);
-            setTheme(theme);
+            document
+                .startViewTransition(() => flushSync(() => setTheme(theme)))
+                .ready.then(() => {
+                    const { top, left, width, height } = buttonRect ?? {
+                        top: window.innerHeight / 2,
+                        left: window.innerWidth / 2,
+                        width: 0,
+                        height: 0,
+                    };
+
+                    document.documentElement.animate(
+                        {
+                            clipPath: [
+                                `circle(0px at ${left + width / 2}px ${
+                                    top + height / 2
+                                }px)`,
+                                `circle(${Math.hypot(
+                                    Math.max(left, window.innerWidth - left),
+                                    Math.max(top, window.innerHeight - top)
+                                )}px at ${left + width / 2}px ${
+                                    top + height / 2
+                                }px)`,
+                            ],
+                        },
+                        {
+                            duration: 500,
+                            easing: "ease-in-out",
+                            pseudoElement: "::view-transition-new(root)",
+                        }
+                    );
+                });
         },
     };
 
