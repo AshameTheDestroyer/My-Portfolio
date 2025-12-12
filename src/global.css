@@ -80,9 +80,20 @@ body::after {
     z-index: -1;
     opacity: 0.2;
 
+    background-size: 30px 30px;
+    background-position: 0 0, 0 0;
+    animation: background-move 5s linear infinite;
     background-image: linear-gradient(#00af64 1.5px, transparent 1.5px),
         linear-gradient(to right, #00af64 1.5px, transparent 1.5px);
-    background-size: 30px 30px;
+}
+
+@keyframes background-move {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+    100% {
+        background-position: 30px 30px, 30px 30px;
+    }
 }
 
 :root:not(.cursor-clicked) :is(button, a) {
