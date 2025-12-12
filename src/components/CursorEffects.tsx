@@ -8,10 +8,24 @@ export const CursorEffects: FC = () => {
     useEffect(() => {
         document.addEventListener("click", ClickHandler);
         document.addEventListener("mousemove", MoveHandler);
+        document.querySelectorAll("button, a").forEach((element) => {
+            element.addEventListener("mouseenter", InteractiveEnterHandler);
+            element.addEventListener("mouseleave", InteractiveLeaveHandler);
+        });
 
         return () => {
             document.removeEventListener("click", ClickHandler);
             document.removeEventListener("mousemove", MoveHandler);
+            document.querySelectorAll("button, a").forEach((element) => {
+                element.removeEventListener(
+                    "mouseenter",
+                    InteractiveEnterHandler
+                );
+                element.removeEventListener(
+                    "mouseleave",
+                    InteractiveLeaveHandler
+                );
+            });
         };
     }, []);
 
@@ -53,13 +67,45 @@ export const CursorEffects: FC = () => {
         }, 25);
     }
 
+    function InteractiveEnterHandler() {
+        if (trailContainerReference.current == null) {
+            return;
+        }
+
+        const trailElements = [
+            ...trailContainerReference.current.children,
+        ] as HTMLElement[];
+
+        trailElements.forEach((trailElement, i) => {
+            setTimeout(() => {
+                trailElement.style.scale = "1.75";
+            }, i * 50);
+        });
+    }
+
+    function InteractiveLeaveHandler() {
+        if (trailContainerReference.current == null) {
+            return;
+        }
+
+        const trailElements = [
+            ...trailContainerReference.current.children,
+        ] as HTMLElement[];
+
+        trailElements.forEach((trailElement, i) => {
+            setTimeout(() => {
+                trailElement.style.scale = "1";
+            }, i * 50);
+        });
+    }
+
     return (
         <div ref={trailContainerReference}>
             {trails.map((_, i) => (
                 <div
                     key={i}
                     className={[
-                        "fixed rounded-full not-dark:invert top-1/2 left-1/2 -translate-1/4 pointer-events-none mix-blend-difference z-1000 transition-all duration-75",
+                        "fixed rounded-full not-dark:invert top-1/2 left-1/2 -translate-1/4 pointer-events-none mix-blend-difference z-1000 transition-[inset,scale] duration-[75ms,500ms]",
                         [
                             "bg-primary-500/50 size-7",
                             "bg-primary-500/25 size-5",
