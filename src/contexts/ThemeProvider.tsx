@@ -1,3 +1,4 @@
+import { flushSync } from "react-dom";
 import {
     useState,
     useEffect,
@@ -5,7 +6,6 @@ import {
     createContext,
     type PropsWithChildren,
 } from "react";
-import { flushSync } from "react-dom";
 
 export type Theme = "dark" | "light" | "system";
 
